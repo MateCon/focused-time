@@ -63,6 +63,12 @@ $backgroundSecondColor: #191D21;
         position: absolute;
         bottom: 15px;
         right: 30px;
+        
+        #link {
+            height: 0.9em;
+            margin-bottom: 0;
+        }
+
         a {
             color: white;
             text-decoration: none;

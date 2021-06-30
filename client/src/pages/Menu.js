@@ -1,5 +1,6 @@
 import React from 'react';
 import { ReactComponent as Logo } from '../images/logo.svg';
+import { ReactComponent as Link } from '../images/link.svg';
 
 const Menu = () => {
     return (
@@ -13,6 +14,7 @@ const Menu = () => {
             <Logo id='logo'/>
             <p id='start-link'>Start!</p>
             <div id='about-me'>
+                <Link id='link' />
                 <a href='https://github.com/matecon' target='blanc'>About me</a>
             </div>
         </div>
