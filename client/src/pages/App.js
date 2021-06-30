@@ -7,12 +7,14 @@ import '../styles/Styles.scss';
 const App = () => {
   const [currentPage, setCurrentPage] = useState('Menu');
 
+  const goToTimer = () => setCurrentPage('Timer');
+
   return (
     <div className="App">
       {
         currentPage === 'Timer' ?
           <Timer />
-        : <Menu />
+        : <Menu goToTimer={goToTimer} />
       }
     </div>
   );
