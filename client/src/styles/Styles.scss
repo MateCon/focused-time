@@ -96,4 +96,14 @@ $backgroundSecondColor: #191D21;
             top: 22.5%;
         }
     }
+
+    @media (max-width: 1474px) {
+        #title, #subtitle, #start-link {
+            left: 90px;
+        }
+
+        #logo {
+            right: 10%;
+        }
+    }
 }
