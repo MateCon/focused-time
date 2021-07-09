@@ -1,0 +1,46 @@
+#navbar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+
+    div {
+        margin-bottom: 20px;
+        height: fit-content;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        font-size: 0.75em;
+        align-items: center;
+
+        :hover~p {
+            display: block;
+        }
+
+        p {
+            text-align: center;
+            display: none;
+            position: relative;
+            bottom: 0;
+        }
+
+        #title {
+            margin-left: 10px;
+            font-size: 1.4em;
+            display: block;
+        }
+
+        #logo {
+            width: 32px;
+            height: fit-content;
+            margin: 0;
+        }
+    
+        .icon {
+            margin-left: 4px;
+            width: 24px;
+            height: 24px;
+        }
+    }
+}

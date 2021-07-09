@@ -1,11 +1,14 @@
-$primaryColor: #B940FC;
-$secondaryColor: #8A38FA;
-$backgroundFirstColor: #241641;
-$backgroundSecondColor: #191D21;
+@import 'variables', 'navbar', 'menu', 'timer';
 
 :root {
     color: white;
     font-size: 20px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .App {
@@ -16,94 +19,4 @@ $backgroundSecondColor: #191D21;
     height: 100vh;
     background: linear-gradient(135deg, $backgroundFirstColor, $backgroundSecondColor);
     overflow: hidden;
-}
-
-.Menu {
-    
-    #title {
-        user-select: none;
-        font-size: 5rem;
-        position: absolute;
-        left: 180px;
-        top: 16%;
-        font-weight: 300;
-    }
-
-    #subtitle {
-        user-select: none;
-        font-size: 2.5rem;
-        position: absolute;
-        left: 180px;
-        top: 38%;
-        font-weight: 200;
-    }
-
-    #logo {
-        position: absolute;
-        width: 280px;
-        height: 450px;
-        right: 15%;
-        top: 21%;
-    }
-
-    #start-link {
-        user-select: none;
-        cursor: pointer;
-        position: absolute;
-        left: 180px;
-        top: 52%;
-        font-size: 2.8rem;
-        font-weight: 300;
-        background: -webkit-linear-gradient(135deg, $primaryColor, $secondaryColor);
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    #about-me {
-        position: absolute;
-        bottom: 15px;
-        right: 30px;
-        
-        #link {
-            height: 0.9em;
-            margin-bottom: 0;
-        }
-
-        a {
-            color: white;
-            text-decoration: none;
-            font-size: 24px;
-        }
-    }
-
-    #background-text {
-        user-select: none;
-        color: rgba(255, 247, 247, 0.04);
-        overflow: hidden;
-        white-space: nowrap;
-
-        p {
-            position: absolute;
-            font-weight: 800;
-            font-size: 9.25rem;
-        }
-
-        .first {
-            top: 2%;
-        }
-
-        .second {
-            top: 22.5%;
-        }
-    }
-
-    @media (max-width: 1474px) {
-        #title, #subtitle, #start-link {
-            left: 90px;
-        }
-
-        #logo {
-            right: 10%;
-        }
-    }
 }

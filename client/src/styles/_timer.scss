@@ -1,0 +1,41 @@
+@import 'variables';
+
+#timer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    #time-container, #time-conteiner-compleated {
+        position: absolute;
+        border-radius: 100%;
+    }
+
+    #time-container {
+        width: 32vw;
+        height: 32vw;
+        border: 7px solid gray;
+    }
+
+    #time-conteiner-compleated {
+        height: calc(32vw - 6px);
+        width: calc(32vw - 6px);
+        border: 1px solid white;
+    }
+
+    #time {
+        font-size: 4rem;
+    }
+
+    button {
+        font-size: 1rem;
+        min-width: 6rem;
+        padding: 8px;
+        background: linear-gradient(135deg, $primaryColor, $secondaryColor);
+        border: 0;
+        border-radius: 10px;
+        color: white;
+    }
+}
