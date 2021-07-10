@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useStopwatch } from 'react-timer-hook';
 import Menu from './Menu';
 import Timer from './Timer';
 import '../styles/App.css';
@@ -9,12 +10,27 @@ const App = () => {
 
   const goToTimer = () => setCurrentPage('Timer');
 
+  const {
+    seconds,
+    minutes,
+    hours,
+    days,
+    isRunning,
+    start,
+    pause,
+    reset,
+  } = useStopwatch({ autoStart: false });
+
   return (
     <div className="App">
       {
         currentPage === 'Timer' ?
-          <Timer />
-        : <Menu goToTimer={goToTimer} />
+          <Timer 
+            time={''}
+          />
+        : <Menu 
+            goToTimer={goToTimer} 
+          />
       }
     </div>
   );
