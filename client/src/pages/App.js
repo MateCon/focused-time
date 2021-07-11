@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTimer } from 'react-timer-hook';
 import Menu from './Menu';
 import Timer from './Timer';
+import Profile from './Profile';
 import '../styles/App.css';
 import '../styles/Styles.scss';
 
@@ -9,14 +10,18 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-firebase.initializeApp({
-  apiKey: "AIzaSyCt9tsbFxMESJRMqaLVE4sBl6BMf7LYqZI",
-  authDomain: "focused-time.firebaseapp.com",
-  projectId: "focused-time",
-  storageBucket: "focused-time.appspot.com",
-  messagingSenderId: "859103137091",
-  appId: "1:859103137091:web:b3bd1dc45c455997dff3f6"
-});
+if (!firebase.apps.length) {
+  firebase.initializeApp({
+    apiKey: "AIzaSyCt9tsbFxMESJRMqaLVE4sBl6BMf7LYqZI",
+    authDomain: "focused-time.firebaseapp.com",
+    projectId: "focused-time",
+    storageBucket: "focused-time.appspot.com",
+    messagingSenderId: "859103137091",
+    appId: "1:859103137091:web:b3bd1dc45c455997dff3f6"
+  });
+}else {
+  firebase.app(); // if already initialized, use that one
+}
 
 const auth = firebase.auth();
 
