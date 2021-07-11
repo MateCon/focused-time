@@ -8,7 +8,7 @@ const Profile = ({ user, SignIn, SignOut, goToMenu, goToTimer, goToProfile }) =>
             user
                 ? <div id='signed-in'>
                     <SignOut />
-                    <img src={user.photoURL} alt='Profile picture' />
+                    <img src={user.photoURL} alt='Google account' />
                     <p className='title'>{user.displayName}</p>
                     <i className='email'>{user.email}</i>
                 </div>
