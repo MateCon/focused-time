@@ -1,0 +1,61 @@
+@mixin center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#profile {
+    div button {
+        padding: 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+        background: linear-gradient(135deg, #cdcdcd1e, #6161611e);
+        color: white;
+        border: 3px solid #ffffff1e;
+        font-size: 1.2em;
+        border-radius: 5px;
+
+        .icon {
+            width: 48px;
+            height: 48px;
+        }
+    }
+
+    #signed-in {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+            margin-top: 6vh;
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+        }
+
+        .title {
+            margin-top: 10px;
+            font-size: 1.4em;
+        }
+
+        .email {
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            font-size: 1em;
+        }
+    }
+
+    #signed-out {
+        @include center;
+    }
+}

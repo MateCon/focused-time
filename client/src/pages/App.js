@@ -3,6 +3,7 @@ import { useTimer } from 'react-timer-hook';
 import Menu from './Menu';
 import Timer from './Timer';
 import Profile from './Profile';
+import { ReactComponent as GoogleIcon } from '../images/google.svg';
 import '../styles/App.css';
 import '../styles/Styles.scss';
 
@@ -81,6 +82,22 @@ const App = () => {
     restartTimer('pomodoro');
   }, [])
 
+  // user auth
+  const [user] = useAuthState(auth);
+  function SignIn() {
+    const signInWithGoogle = () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider);
+    }
+
+    return <button onClick={signInWithGoogle}><GoogleIcon className='icon' /> Sign in with Google</button>
+  }
+  function SignOut() {
+    return auth.currentUser && (
+      <button onClick={() => auth.signOut()}>Sign Out</button>
+    )
+  }
+
   return (
     <div className='App' >
       {
@@ -100,7 +117,14 @@ const App = () => {
             goToProfile={goToProfile}
           />
         : currentPage === 'Profile' ?
-          <Profile />
+          <Profile 
+            user={auth.currentUser}
+            SignIn={SignIn}
+            SignOut={SignOut}
+            goToMenu={goToMenu}
+            goToTimer={goToTimer}
+            goToProfile={goToProfile}
+          />
         : <Menu 
             goToTimer={goToTimer} 
           />
