@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 
-const Timer = ({time, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak}) => {
+const Timer = ({time, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak, goToMenu, goToTimer, goToProfile}) => {
     const [hasStarted, setHasStarted] = useState(false);
 
     return (
         <div>
-            <Navbar />
+            <Navbar goToMenu={goToMenu} goToTimer={goToTimer} goToProfile={goToProfile} />
             <div id='timer'>
                 <div id='pomodoro-options-container'>
                     <button id='pomodoro-selector' onClick={() => {

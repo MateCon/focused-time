@@ -8,7 +8,9 @@ import '../styles/Styles.scss';
 const App = () => {
   // page handler
   const [currentPage, setCurrentPage] = useState('Menu');
+  const goToMenu = () => setCurrentPage('Menu');
   const goToTimer = () => setCurrentPage('Timer');
+  const goToProfile = () => setCurrentPage('Profile');
 
   // state management
   const [pomodoroLength, setPomodoroLength] = useState(25);
@@ -73,6 +75,9 @@ const App = () => {
             setPomodoro={() => {setPomodoro(); restartTimer('pomodoro');}}
             setBreak={() => {setBreak(); restartTimer('break');}}
             setLongBreak={() => {setLongBreak(); restartTimer('long break');}}
+            goToMenu={goToMenu}
+            goToTimer={goToTimer}
+            goToProfile={goToProfile}
           />
         : <Menu 
             goToTimer={goToTimer} 
