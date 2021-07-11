@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './Navbar';
 
-const Timer = () => {
+const Timer = ({time, isRunning, start, pause, resume, restart}) => {
+    const [hasStarted, setHasStarted] = useState(false);
+
     return (
         <div>
             <Navbar />
@@ -11,15 +13,29 @@ const Timer = () => {
                     <button id='break-selector'>Break</button>
                     <button id='long-break-selector'>Long break</button>
                 </div>
-            
+
                 <div id='time-container' />
                 <div id='time-conteiner-compleated' />
-                <p id='time'>13:04</p>
+                <p id='time'>{time}</p>
 
                 <div id='time-control-container'>
-                    <button id='start-button'>Start</button>
-                    <button id='pause-button'>Pause</button>
-                    <button id='restart-button'>Restart</button>
+                    {
+                        !hasStarted
+                            ? <button onClick={() => {
+                                start();
+                                setHasStarted(true);
+                            }}>Start</button>
+                            : (
+                                isRunning
+                                    ? <button onClick={pause}>Pause</button>
+                                    : <button onClick={resume}>Resume</button>
+                            )
+                            
+                    }
+                    <button onClick={() => {
+                        restart(); 
+                        setHasStarted(false);
+                    }}>Restart</button>
                 </div>
             </div>
         </div>

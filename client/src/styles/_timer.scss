@@ -8,6 +8,16 @@
     justify-content: center;
     align-items: center;
 
+    #pomodoro-options-container {
+        margin-bottom: 45%;
+    }
+
+    #pomodoro-options-container, #time-control-container {
+        display: flex;
+        flex-direction: row;
+        gap: 40px;
+    } 
+
     #time-container, #time-conteiner-compleated {
         position: absolute;
         border-radius: 100%;
@@ -34,6 +44,10 @@
     }
 
     #time {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         font-size: 4rem;
         z-index: 2;
     }
