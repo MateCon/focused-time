@@ -5,6 +5,21 @@ import Timer from './Timer';
 import '../styles/App.css';
 import '../styles/Styles.scss';
 
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
+firebase.initializeApp({
+  apiKey: "AIzaSyCt9tsbFxMESJRMqaLVE4sBl6BMf7LYqZI",
+  authDomain: "focused-time.firebaseapp.com",
+  projectId: "focused-time",
+  storageBucket: "focused-time.appspot.com",
+  messagingSenderId: "859103137091",
+  appId: "1:859103137091:web:b3bd1dc45c455997dff3f6"
+});
+
+const auth = firebase.auth();
+
 const App = () => {
   // page handler
   const [currentPage, setCurrentPage] = useState('Menu');
@@ -35,9 +50,9 @@ const App = () => {
     restart,
   } = useTimer({ expiryTimestamp, onExpire: () => {console.log('expire')} });
 
-  const restartTimer = () => {
+  const restartTimer = (state = '') => {
     let minutes;
-    switch(currentState) {
+    switch(state) {
       case 'pomodoro':
         minutes = pomodoroLength;
         break;
@@ -48,7 +63,7 @@ const App = () => {
         minutes = longBreakLength;
         break;
       default:
-        minutes = 0;
+        minutes = currentState;
         break;
     }
 
@@ -58,11 +73,11 @@ const App = () => {
   }
 
   useEffect(() => {
-    restartTimer();
+    restartTimer('pomodoro');
   }, [])
 
   return (
-    <div className="App">
+    <div className='App' >
       {
         currentPage === 'Timer' ?
           <Timer 
@@ -79,6 +94,8 @@ const App = () => {
             goToTimer={goToTimer}
             goToProfile={goToProfile}
           />
+        : currentPage === 'Profile' ?
+          <Profile />
         : <Menu 
             goToTimer={goToTimer} 
           />
