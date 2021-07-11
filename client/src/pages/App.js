@@ -20,7 +20,7 @@ if (!firebase.apps.length) {
     messagingSenderId: "859103137091",
     appId: "1:859103137091:web:b3bd1dc45c455997dff3f6"
   });
-}else {
+} else {
   firebase.app(); // if already initialized, use that one
 }
 
