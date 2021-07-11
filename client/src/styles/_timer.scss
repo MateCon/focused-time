@@ -1,5 +1,24 @@
 @import 'variables';
 
+@mixin center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin centerHorizontally {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+@mixin centerVertically {
+    position: absolute;
+    top: 50%;
+    transform: translate(0%, -50%);
+}
+
 #timer {
     width: 100vw;
     height: 100vh;
@@ -9,7 +28,13 @@
     align-items: center;
 
     #pomodoro-options-container {
-        margin-bottom: 45%;
+        @include centerHorizontally();
+        top: 10%;
+    }
+    
+    #time-control-container {
+        @include centerHorizontally();
+        bottom: 10%;
     }
 
     #pomodoro-options-container, #time-control-container {
@@ -44,10 +69,7 @@
     }
 
     #time {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        @include center;
         font-size: 4rem;
         z-index: 2;
     }

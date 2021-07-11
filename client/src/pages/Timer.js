@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 
-const Timer = ({time, isRunning, start, pause, resume, restart}) => {
+const Timer = ({time, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak}) => {
     const [hasStarted, setHasStarted] = useState(false);
 
     return (
@@ -9,9 +9,18 @@ const Timer = ({time, isRunning, start, pause, resume, restart}) => {
             <Navbar />
             <div id='timer'>
                 <div id='pomodoro-options-container'>
-                    <button id='pomodoro-selector'>Pomodoro</button>
-                    <button id='break-selector'>Break</button>
-                    <button id='long-break-selector'>Long break</button>
+                    <button id='pomodoro-selector' onClick={() => {
+                        setPomodoro();
+                        setHasStarted(false);
+                    }}>Pomodoro</button>
+                    <button id='break-selector' onClick={() => {
+                        setBreak();
+                        setHasStarted(false);
+                    }}>Break</button>
+                    <button id='long-break-selector' onClick={() => {
+                        setLongBreak();
+                        setHasStarted(false);
+                    }}>Long break</button>
                 </div>
 
                 <div id='time-container' />
@@ -22,20 +31,24 @@ const Timer = ({time, isRunning, start, pause, resume, restart}) => {
                     {
                         !hasStarted
                             ? <button onClick={() => {
+                                restart();
                                 start();
                                 setHasStarted(true);
                             }}>Start</button>
-                            : (
-                                isRunning
-                                    ? <button onClick={pause}>Pause</button>
-                                    : <button onClick={resume}>Resume</button>
-                            )
+                            : <>
+                                {
+                                    isRunning
+                                        ? <button onClick={pause}>Pause</button>
+                                        : <button onClick={resume}>Resume</button>
+                                }
+                                <button onClick={() => {
+                                    restart(); 
+                                    setHasStarted(false);
+                                }}>Restart</button>
+                            </>
                             
                     }
-                    <button onClick={() => {
-                        restart(); 
-                        setHasStarted(false);
-                    }}>Restart</button>
+
                 </div>
             </div>
         </div>
