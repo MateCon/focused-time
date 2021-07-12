@@ -69,7 +69,19 @@ const App = () => {
         minutes = longBreakLength;
         break;
       default:
-        minutes = currentState;
+        switch(currentState) {
+          case 'pomodoro':
+            minutes = pomodoroLength;
+            break;
+          case 'break':
+            minutes = breakLength;
+            break;
+          case 'long break':
+            minutes = longBreakLength;
+            break;
+          default:
+            break;
+        }
         break;
     }
 

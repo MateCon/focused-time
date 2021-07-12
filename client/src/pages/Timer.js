@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 
 const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak, goToMenu, goToTimer, goToProfile}) => {
     const [hasStarted, setHasStarted] = useState(false);
-    const [timerBackground, setTimerBackground] = useState('conic-gradient(rgba(0, 0, 0, 0.2) 0deg, transparent calc(0deg + 0.5deg) 100%)'); 
+    const [timerBackground, setTimerBackground] = useState(''); 
 
     useEffect(() => {
         console.log(360 - (ratio * 360));
