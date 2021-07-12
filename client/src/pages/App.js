@@ -93,6 +93,14 @@ const App = () => {
     restartTimer('pomodoro');
   }, [])
 
+  useEffect(() => {
+    if(isRunning) {
+      document.title = `${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`; 
+    } else {
+      document.title = 'Focused Time';
+    }
+ }, [seconds]);
+
   // user auth
   const [user] = useAuthState(auth);
   function SignIn() {

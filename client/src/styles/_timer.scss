@@ -39,6 +39,10 @@
         @include centerHorizontally();
         bottom: 10%;
 
+        button {
+            font-weight: 600;
+        }
+
         #restart-button {
             background: linear-gradient(135deg, #1D1B2C, #8D8B95);
         }
@@ -58,8 +62,7 @@
     #time-container {
         width: 50vh;
         height: 50vh;
-        border-radius:  50%;
-        background: conic-gradient(rgba(0, 0, 0, 0.2) 0deg, transparent calc(0deg + 0.5deg) 100%);
+        background: conic-gradient(rgba(0, 0, 0, 0.4) 0deg, transparent calc(0deg + 0.5deg) 100%);
     }
 
     #time-conteiner-compleated {
@@ -74,9 +77,11 @@
     }
 
     button {
+        user-select: none;
+        cursor: pointer;
         font-size: 1rem;
         min-width: 6rem;
-        padding: 8px;
+        padding: 8px 20px 8px 20px;
         background: linear-gradient(135deg, $primaryColor, $secondaryColor);
         border: 0;
         border-radius: 10px;

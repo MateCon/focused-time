@@ -7,7 +7,7 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
     const [timerBackground, setTimerBackground] = useState(''); 
 
     useEffect(() => {
-        setTimerBackground(`conic-gradient(rgba(0, 0, 0, 0.2) ${360 - ratio * 360}deg, transparent calc(${360 - ratio * 360}deg + 0.5deg) 100%)`); 
+        setTimerBackground(`conic-gradient(rgba(0, 0, 0, 0.4) ${360 - ratio * 360}deg, transparent calc(${360 - ratio * 360}deg + 0.5deg) 100%)`); 
     }, [ratio]);
 
     return (
