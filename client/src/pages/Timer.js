@@ -29,8 +29,7 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
                     }}>Long break</button>
                 </div>
 
-                <div id='time-container' style={{ 'background':timerBackground }}>
-                </div>
+                <div id='time-container' style={{ 'background':timerBackground }} />
                 <ClockBorder id='time-conteiner-compleated' />
                 <p id='time'>{time}</p>
 
@@ -51,7 +50,7 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
                                 <button onClick={() => {
                                     restart(); 
                                     setHasStarted(false);
-                                }}>Restart</button>
+                                }} id='restart-button' >Restart</button>
                             </>
                             
                     }

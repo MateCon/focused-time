@@ -4,7 +4,6 @@ import Menu from './Menu';
 import Timer from './Timer';
 import Profile from './Profile';
 import { ReactComponent as GoogleIcon } from '../images/google.svg';
-import '../styles/App.css';
 import '../styles/Styles.scss';
 
 import firebase from 'firebase/app';

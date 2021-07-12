@@ -30,11 +30,18 @@
     #pomodoro-options-container {
         @include centerHorizontally();
         top: 10%;
+        button {
+            font-weight: 200;
+        }
     }
     
     #time-control-container {
         @include centerHorizontally();
         bottom: 10%;
+
+        #restart-button {
+            background: linear-gradient(135deg, #1D1B2C, #8D8B95);
+        }
     }
 
     #pomodoro-options-container, #time-control-container {
