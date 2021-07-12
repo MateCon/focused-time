@@ -103,7 +103,8 @@ const App = () => {
       {
         currentPage === 'Timer' ?
           <Timer 
-            time={`${minutes}:${seconds}`}
+            time={`${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`}
+            ratio={(minutes * 60 + seconds) / (60 * (currentState === 'pomodoro' ? pomodoroLength : (currentState === 'break' ? breakLength : (currentState === 'long break' ? longBreakLength : 25))))}
             isRunning={isRunning}
             start={start}
             pause={pause}

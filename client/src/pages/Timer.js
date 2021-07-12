@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar';
 
-const Timer = ({time, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak, goToMenu, goToTimer, goToProfile}) => {
+const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak, goToMenu, goToTimer, goToProfile}) => {
     const [hasStarted, setHasStarted] = useState(false);
+    const [timerBackground, setTimerBackground] = useState('conic-gradient(rgba(0, 0, 0, 0.2) 0deg, transparent calc(0deg + 0.5deg) 100%)'); 
+
+    useEffect(() => {
+        console.log(360 - (ratio * 360));
+        setTimerBackground(`conic-gradient(rgba(0, 0, 0, 0.2) ${360 - ratio * 360}deg, transparent calc(${360 - ratio * 360}deg + 0.5deg) 100%)`); 
+    }, [ratio]);
 
     return (
         <div>
@@ -23,7 +29,9 @@ const Timer = ({time, isRunning, start, pause, resume, restart, setPomodoro, set
                     }}>Long break</button>
                 </div>
 
-                <div id='time-container' />
+                <div id='time-container' style={{ 'background':timerBackground }}>
+                    <div id='arc' />
+                </div>
                 <div id='time-conteiner-compleated' />
                 <p id='time'>{time}</p>
 
