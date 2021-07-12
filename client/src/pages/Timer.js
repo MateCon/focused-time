@@ -17,8 +17,24 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
         }
     }, [ratio]);
 
+    const handleKeyPress = (event) => {
+        if(event.key === ' ') {
+            if(!hasStarted) {
+                restart();
+                start();
+                setHasStarted(true);
+            } else {
+                if(!isRunning) {
+                    resume();
+                } else {
+                    pause();
+                }
+            }
+        }
+    }
+
     return (
-        <div>
+        <div onKeyPress={handleKeyPress} tabIndex={0} style={{ outline: 'none' }}>
             <Navbar goToMenu={goToMenu} goToTimer={goToTimer} goToProfile={goToProfile} />
             <div id='timer'>
                 <div id='pomodoro-options-container'>
