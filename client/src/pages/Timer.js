@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar';
+import { ReactComponent as ClockBorder } from '../images/clock-border.svg';
 
 const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak, goToMenu, goToTimer, goToProfile}) => {
     const [hasStarted, setHasStarted] = useState(false);
     const [timerBackground, setTimerBackground] = useState(''); 
 
     useEffect(() => {
-        console.log(360 - (ratio * 360));
         setTimerBackground(`conic-gradient(rgba(0, 0, 0, 0.2) ${360 - ratio * 360}deg, transparent calc(${360 - ratio * 360}deg + 0.5deg) 100%)`); 
     }, [ratio]);
 
@@ -30,9 +30,8 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
                 </div>
 
                 <div id='time-container' style={{ 'background':timerBackground }}>
-                    <div id='arc' />
                 </div>
-                <div id='time-conteiner-compleated' />
+                <ClockBorder id='time-conteiner-compleated' />
                 <p id='time'>{time}</p>
 
                 <div id='time-control-container'>

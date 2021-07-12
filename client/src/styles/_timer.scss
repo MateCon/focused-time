@@ -49,35 +49,16 @@
     }
 
     #time-container {
-        width: 60vh;
-        height: 60vh;
-        border: double 1px transparent;
-        border-radius: 100%;
-        background-image: linear-gradient(135deg, #241641, #191D21), radial-gradient(circle at top left, $primaryColor, $secondaryColor);
-        background-origin: border-box;
-        background-clip: padding-box, border-box;
-    }
-
-    #time-conteiner-compleated {
-        width: 60vh;
-        height: 60vh;
-        // border: double 7px transparent;
-        
-        // background-image: linear-gradient(135deg, #241641, #191D21), radial-gradient(circle at top left, $primaryColor, $secondaryColor);
-        // background-origin: border-box;
-        // background-clip: padding-box, border-box;
+        width: 50vh;
+        height: 50vh;
         border-radius:  50%;
         background: conic-gradient(rgba(0, 0, 0, 0.2) 0deg, transparent calc(0deg + 0.5deg) 100%);
     }
 
-    // #arc {
-    //     height:84%;
-    //     width:84%;
-    //     top:8%;
-    //     left:8%;
-    //     position:relative;
-    //     border-radius:50%;
-    // }
+    #time-conteiner-compleated {
+        width: 70vh;
+        height: 70vh;
+    }
 
     #time {
         @include center;
