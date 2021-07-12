@@ -34,7 +34,7 @@ const App = () => {
 
   // state management
   const [pomodoroLength, setPomodoroLength] = useState(25);
-  const [breakLength, setBreakLength] = useState(5);
+  const [breakLength, setBreakLength] = useState(1);
   const [longBreakLength, setlongBreakLength] = useState(15);
   const [currentState, setCurrentState] = useState('pomodoro');
   const setPomodoro = () => {setCurrentState('pomodoro');};
@@ -94,7 +94,7 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    if(isRunning) {
+    if(isRunning && !(seconds === 0 && minutes === 0)) {
       document.title = `${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`; 
     } else {
       document.title = 'Focused Time';

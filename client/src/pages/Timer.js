@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import useSound from 'use-sound';
 import Navbar from './Navbar';
 import { ReactComponent as ClockBorder } from '../images/clock-border.svg';
+import alarmKitchen from '../sounds/kitchen-alarm.mp3';
+
 
 const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak, goToMenu, goToTimer, goToProfile}) => {
     const [hasStarted, setHasStarted] = useState(false);
-    const [timerBackground, setTimerBackground] = useState(''); 
+    const [timerBackground, setTimerBackground] = useState('');
+    const [playAlarm] = useSound(alarmKitchen);
 
     useEffect(() => {
-        setTimerBackground(`conic-gradient(rgba(0, 0, 0, 0.4) ${360 - ratio * 360}deg, transparent calc(${360 - ratio * 360}deg + 0.5deg) 100%)`); 
+        setTimerBackground(`conic-gradient(rgba(0, 0, 0, 0.4) ${360 - ratio * 360}deg, transparent calc(${360 - ratio * 360}deg + 0.5deg) 100%)`);
+        if(ratio === 0) {
+            playAlarm();
+        }
     }, [ratio]);
 
     return (
