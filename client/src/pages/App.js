@@ -34,7 +34,7 @@ const App = () => {
 
   // state management
   const [pomodoroLength, setPomodoroLength] = useState(25);
-  const [breakLength, setBreakLength] = useState(1);
+  const [breakLength, setBreakLength] = useState(5);
   const [longBreakLength, setlongBreakLength] = useState(15);
   const [currentState, setCurrentState] = useState('pomodoro');
   const setPomodoro = () => {setCurrentState('pomodoro');};
