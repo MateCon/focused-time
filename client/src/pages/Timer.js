@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useSound from 'use-sound';
 import Navbar from './Navbar';
+import Settings from './Settings';
 import { ReactComponent as ClockBorder } from '../images/clock-border.svg';
 import { ReactComponent as FullScreen } from '../images/full-screen.svg';
 import { ReactComponent as Close } from '../images/close.svg';
@@ -12,6 +13,7 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
     const [isFullscreenOn, setIsFullscreenOn] = useState(false);
     const [timerBackground, setTimerBackground] = useState('');
     const [playAlarm] = useSound(alarmKitchen);
+    const [areSettingsVisible, setAreSettingsVisible] = useState(true);
 
     useEffect(() => {
         setTimerBackground(`conic-gradient(rgba(0, 0, 0, 0.4) ${360 - ratio * 360}deg, transparent calc(${360 - ratio * 360}deg + 0.5deg) 100%)`);
@@ -57,6 +59,8 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
           window.removeEventListener('keydown', handleEsc);
         };
     }, []);
+
+    const getForm = form => {}
 
     return (
         <div onKeyPress={handleKeyPress} tabIndex={0} style={{ outline: 'none' }} className={isFullscreenOn ? 'full-screen' : ''} >
@@ -111,9 +115,12 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
                                 }} id='restart-button' >Restart</button>
                             </>
                     }
-
                 </div>
             </div>
+            <Settings 
+                areSettingsVisible={areSettingsVisible}
+                sendForm={getForm}
+            />
         </div>
     );
 }
