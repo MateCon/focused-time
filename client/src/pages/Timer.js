@@ -21,6 +21,7 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
     }, [ratio]);
 
     const handleKeyPress = (event) => {
+        console.log(event);
         if(event.key === ' ') {
             if(!hasStarted) {
                 restart();
@@ -41,13 +42,29 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
         }
     }
 
+    useEffect(() => {console.log(isFullscreenOn)}, [isFullscreenOn])
+
+    // this is for handling the escape key
+    useEffect(() => {
+        const handleEsc = (event) => {
+           if(event.keyCode === 27) {
+            setIsFullscreenOn(false);
+          }
+        };
+        window.addEventListener('keydown', handleEsc);
+    
+        return() => {
+          window.removeEventListener('keydown', handleEsc);
+        };
+    }, []);
+
     return (
         <div onKeyPress={handleKeyPress} tabIndex={0} style={{ outline: 'none' }} className={isFullscreenOn ? 'full-screen' : ''} >
             <Navbar goToMenu={goToMenu} goToTimer={goToTimer} goToProfile={goToProfile} />
             <div id='top-right'>
                 {
                     isFullscreenOn 
-                        ? <Close className='icon' onClick={() => setIsFullscreenOn(false)} />
+                        ? <Close className='icon' onClick={() => setIsFullscreenOn()} />
                         : <FullScreen className='icon' onClick={() => setIsFullscreenOn(true)} />
                 }
             </div>
