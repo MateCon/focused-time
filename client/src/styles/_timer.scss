@@ -1,4 +1,5 @@
 @import 'variables';
+@import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
 
 @mixin center {
     position: absolute;
@@ -74,6 +75,7 @@
         @include center;
         font-size: 4rem;
         z-index: 2;
+        font-family: 'Play', sans-serif;
     }
 
     button {
@@ -91,14 +93,49 @@
 
 #top-right {
     position: absolute;
-    top: 20px;
+    top: 15px;
     right: 20px;
-    width: 40px;
+    width: 30px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 
     .icon {
         fill: red;
+        width: 30px;
+    }
+}
+
+.full-screen {
+    #timer {
+        #time {
+            font-size: 6rem;
+        }
+
+        #time-container {
+            width: 73vh;
+            height: 73vh;
+        }
+
+        #time-conteiner-compleated {
+            width: 100vh;
+            height: 100vh;
+        }
+    }
+
+    #time-control-container-expanded {
+        @include centerHorizontally();
+        bottom: 30%;
+        display: flex;
+        flex-direction: row;
+        gap: 40px;
+
+        button {
+            font-weight: 600;
+        }
+
+        #restart-button {
+            background: linear-gradient(135deg, #1D1B2C, #8D8B95);
+        }
     }
 }
