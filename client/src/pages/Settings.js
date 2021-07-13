@@ -21,34 +21,40 @@ const Settings = ({ isShown, sendForm }) => {
     }
 
     return <form id='Settings' onSubmit={submit}>
-        <p class='title'>Settings</p>
+        <p className='title'>Settings</p>
         <div>
-            <div>
-                <label>Pomodoro length</label>
-                <input value={pomodoroLength} onChange={handlePomodoroChange} type='number' placeholder='' />
+            <div class='row'>
+                <div>
+                    <label>Pomodoro length</label>
+                    <input value={pomodoroLength} onChange={handlePomodoroChange} type='number' placeholder='' />
+                </div>
+                <div>
+                    <label>Break length</label>
+                    <input value={breakLength} onChange={handleBreakChange} type='number' placeholder='' />
+                </div>
+                <div>
+                    <label>Long break length</label>
+                    <input value={longBreakLength} onChange={handleAutoStartChange} type='number' placeholder='' />
+                </div>
             </div>
-            <div>
-                <label>Break length</label>
-                <input value={breakLength} onChange={handleBreakChange} type='number' placeholder='' />
+            <div class='row'>
+                <div>
+                    <label>Auto start breaks and pomodoros</label>
+                    <label className="switch">
+                        <input value={autoStart} onChange={handleBreakChange} type="checkbox" placeholder='' />
+                        <span className="slider round"></span>
+                    </label>
+                </div>
+                <div>
+                    <label>Long break interval</label>
+                    <input onChange={handleLongBreakIntervalChange} type='number' placeholder='' />
+                </div>
             </div>
-            <div>
-                <label>Long break length</label>
-                <input value={longBreakLength} onChange={handleAutoStartChange} type='number' placeholder='' />
+            <div class='row' id='last-row'>
+                <button type='submit'>Save</button>
+                <p id='close'>Close</p>
             </div>
-            <div>
-                <label>Auto start breaks and pomodoros</label>
-                <label class="switch">
-                    <input value={autoStart} onChange={handleBreakChange} type="checkbox" placeholder='' />
-                    <span class="slider round"></span>
-                </label>
-            </div>
-            <div>
-                <label>Long break interval</label>
-                <input onChange={handleLongBreakIntervalChange} type='number' placeholder='' />
-            </div>
-            <button type='submit'>Save</button>
         </div>
-        <p id='close'>Close</p>
     </form>;
 }
 

@@ -2,8 +2,26 @@
     position: absolute;
     bottom: 0;
     right: 0;
-}
+    display: flex;
+    flex-direction: column;
+    background-color: #343434ca;
 
+    div .row, .row {
+        display: flex;
+        flex-direction: row;
+
+        div {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    #last-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
 
 // from https://www.w3schools.com/howto/howto_css_switch.asp
 /* The switch - the box around the slider */
