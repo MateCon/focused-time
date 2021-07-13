@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import useSound from 'use-sound';
 import Navbar from './Navbar';
 import { ReactComponent as ClockBorder } from '../images/clock-border.svg';
+import { ReactComponent as FullScreen } from '../images/full-screen.svg';
 import alarmKitchen from '../sounds/kitchen-alarm.mp3';
 
 
@@ -36,6 +37,9 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
     return (
         <div onKeyPress={handleKeyPress} tabIndex={0} style={{ outline: 'none' }}>
             <Navbar goToMenu={goToMenu} goToTimer={goToTimer} goToProfile={goToProfile} />
+            <div id='top-right'>
+                <FullScreen className='icon' />
+            </div>
             <div id='timer'>
                 <div id='pomodoro-options-container'>
                     <button id='pomodoro-selector' onClick={() => {
