@@ -8,7 +8,7 @@ import { ReactComponent as Close } from '../images/close.svg';
 import { ReactComponent as SettingsIcon } from '../images/settings.svg';
 import alarmKitchen from '../sounds/kitchen-alarm.mp3';
 
-const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak, goToMenu, goToTimer, goToProfile, sendForm }) => {
+const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak, goToMenu, goToTimer, goToProfile, sendForm, counterOnStart }) => {
     const [hasStarted, setHasStarted] = useState(false);
     const [isFullscreenOn, setIsFullscreenOn] = useState(false);
     const [timerBackground, setTimerBackground] = useState('');
@@ -63,6 +63,12 @@ const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomod
         sendForm(form);
         setHasStarted(false);
     }
+
+    useEffect(() => {
+        if(counterOnStart === 0) return;
+        console.log(counterOnStart);
+        setHasStarted(true);
+    }, [counterOnStart])
 
     return (
         <div onKeyPress={handleKeyPress} tabIndex={0} style={{ outline: 'none' }} className={isFullscreenOn ? 'full-screen' : ''} >

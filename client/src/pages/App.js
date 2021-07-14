@@ -53,7 +53,10 @@ const App = () => {
   const setBreak = () => {setCurrentState('break');};
   const setLongBreak = () => {setCurrentState('long break');};
 
+  const [autoStart, setAutoStart] = useState(previousForm.autoStart);
+
   // time management
+  const [counterOnStart, setCounterOnStart] = useState(false);
   let expiryTimestamp = 0;
   const {
     seconds,
@@ -65,7 +68,7 @@ const App = () => {
     pause,
     resume,
     restart,
-  } = useTimer({ expiryTimestamp, onExpire: () => {} });
+  } = useTimer({ expiryTimestamp, onExpire: () => {}});
 
   const restartTimer = (state = '') => {
     let minutes;
@@ -99,11 +102,15 @@ const App = () => {
     const newTime = new Date();
     newTime.setSeconds(newTime.getSeconds() + minutes * 60);
     restart(newTime, false);
+    setCounterOnStart(true);
   }
 
   useEffect(() => {
-    restartTimer('pomodoro');
-  }, [])
+    if(seconds + minutes === 0 && autoStart && counterOnStart && !isRunning) {
+      restartTimer('pomodoro');
+      start();
+    }
+  }, [isRunning])
 
   useEffect(() => {
     if(isRunning && !(seconds === 0 && minutes === 0)) {
@@ -133,6 +140,7 @@ const App = () => {
     setPomodoroLength(form.pomodoroLength);
     setBreakLength(form.breakLength);
     setlongBreakLength(form.longBreakLength);
+    setAutoStart(form.autoStart);
   }
 
   useEffect(() => {
@@ -158,6 +166,7 @@ const App = () => {
             goToTimer={goToTimer}
             goToProfile={goToProfile}
             sendForm={getForm}
+            counterOnStart={counterOnStart}
           />
         : currentPage === 'Profile' ?
           <Profile 
