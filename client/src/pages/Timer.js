@@ -8,7 +8,6 @@ import { ReactComponent as Close } from '../images/close.svg';
 import { ReactComponent as SettingsIcon } from '../images/settings.svg';
 import alarmKitchen from '../sounds/kitchen-alarm.mp3';
 
-
 const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak, goToMenu, goToTimer, goToProfile}) => {
     const [hasStarted, setHasStarted] = useState(false);
     const [isFullscreenOn, setIsFullscreenOn] = useState(false);
