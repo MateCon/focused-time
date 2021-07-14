@@ -8,7 +8,7 @@ import { ReactComponent as Close } from '../images/close.svg';
 import { ReactComponent as SettingsIcon } from '../images/settings.svg';
 import alarmKitchen from '../sounds/kitchen-alarm.mp3';
 
-const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak, goToMenu, goToTimer, goToProfile}) => {
+const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak, goToMenu, goToTimer, goToProfile, sendForm }) => {
     const [hasStarted, setHasStarted] = useState(false);
     const [isFullscreenOn, setIsFullscreenOn] = useState(false);
     const [timerBackground, setTimerBackground] = useState('');
@@ -16,7 +16,7 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
     const [areSettingsVisible, setAreSettingsVisible] = useState(false);
 
     useEffect(() => {
-        setTimerBackground(`conic-gradient(rgba(0, 0, 0, 0.4) ${360 - ratio * 360}deg, transparent calc(${360 - ratio * 360}deg + 0.5deg) 100%)`);
+        setTimerBackground(ratio === 1 ? 'linear-gradient(transparent, transparent)' : `conic-gradient(rgba(0, 0, 0, 0.4) ${360 - ratio * 360}deg, transparent calc(${360 - ratio * 360}deg + 0.5deg) 100%)`);
         if(ratio === 0) {
             playAlarm();
         }
@@ -57,9 +57,12 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
         };
     }, []);
 
-    const getForm = form => {}
-
     const closeSettings = () => setAreSettingsVisible(false);
+
+    const getForm = form => {
+        sendForm(form);
+        setHasStarted(false);
+    }
 
     return (
         <div onKeyPress={handleKeyPress} tabIndex={0} style={{ outline: 'none' }} className={isFullscreenOn ? 'full-screen' : ''} >
@@ -114,13 +117,12 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
                                 <button onClick={() => {
                                     restart(); 
                                     setHasStarted(false);
-                                }} id='restart-button' >Restart</button>
+                                }} id='restart-button'>Restart</button>
                             </>
                     }
                 </div>
             </div>
             <Settings 
-                areSettingsVisible={areSettingsVisible}
                 sendForm={getForm}
                 move={areSettingsVisible}
                 close={closeSettings}

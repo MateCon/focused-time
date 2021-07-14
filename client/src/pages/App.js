@@ -25,6 +25,17 @@ if (!firebase.apps.length) {
 
 const auth = firebase.auth();
 
+const localStorage = window.localStorage;
+const defaultConfig = {
+  pomodoroLength: 25,
+  breakLength: 5,
+  longBreakLength: 15,
+  autoStart: false,
+  longBreakInterval: 3,
+  volume: 50,
+  alarm: 'Kitchen Alarm'
+};
+
 const App = () => {
   // page handler
   const [currentPage, setCurrentPage] = useState('Menu');
@@ -33,9 +44,10 @@ const App = () => {
   const goToProfile = () => setCurrentPage('Profile');
 
   // state management
-  const [pomodoroLength, setPomodoroLength] = useState(25);
-  const [breakLength, setBreakLength] = useState(5);
-  const [longBreakLength, setlongBreakLength] = useState(15);
+  const previousForm = (localStorage.hasOwnProperty('config')) ? JSON.parse(localStorage.config): defaultConfig;
+  const [pomodoroLength, setPomodoroLength] = useState(previousForm.pomodoroLength);
+  const [breakLength, setBreakLength] = useState(previousForm.breakLength);
+  const [longBreakLength, setlongBreakLength] = useState(previousForm.longBreakLength);
   const [currentState, setCurrentState] = useState('pomodoro');
   const setPomodoro = () => {setCurrentState('pomodoro');};
   const setBreak = () => {setCurrentState('break');};
@@ -117,6 +129,16 @@ const App = () => {
     )
   }
 
+  const getForm = form => {
+    setPomodoroLength(form.pomodoroLength);
+    setBreakLength(form.breakLength);
+    setlongBreakLength(form.longBreakLength);
+  }
+
+  useEffect(() => {
+    restartTimer(currentState)
+  }, [pomodoroLength, breakLength, longBreakLength]);
+
   return (
     <div className='App' >
       {
@@ -135,6 +157,7 @@ const App = () => {
             goToMenu={goToMenu}
             goToTimer={goToTimer}
             goToProfile={goToProfile}
+            sendForm={getForm}
           />
         : currentPage === 'Profile' ?
           <Profile 

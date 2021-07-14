@@ -11,7 +11,7 @@ const defaultConfig = {
     alarm: 'Kitchen Alarm'
 };
 
-const Settings = ({ isShown, sendForm, move, close }) => {
+const Settings = ({ sendForm, move, close }) => {
     const previousForm = (localStorage.hasOwnProperty('config')) ? JSON.parse(localStorage.config): defaultConfig;
 
     const [pomodoroLength, setPomodoroLength] = useState(previousForm.pomodoroLength);
@@ -32,7 +32,6 @@ const Settings = ({ isShown, sendForm, move, close }) => {
 
     const [animations, setAnimations] = useState(0);
     useEffect(() => {
-        console.log(move);
         setAnimations(animations + 1);
     }, [move]);
 
@@ -48,6 +47,7 @@ const Settings = ({ isShown, sendForm, move, close }) => {
             alarm: alarm
         };
         localStorage.setItem('config', JSON.stringify(config));
+        sendForm(config);
     }
 
     return <form id='Settings' onSubmit={submit} style={animations > 1 ? (move === true ? {
