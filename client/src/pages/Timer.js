@@ -5,6 +5,7 @@ import Settings from './Settings';
 import { ReactComponent as ClockBorder } from '../images/clock-border.svg';
 import { ReactComponent as FullScreen } from '../images/full-screen.svg';
 import { ReactComponent as Close } from '../images/close.svg';
+import { ReactComponent as SettingsIcon } from '../images/settings.svg';
 import alarmKitchen from '../sounds/kitchen-alarm.mp3';
 
 
@@ -13,7 +14,7 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
     const [isFullscreenOn, setIsFullscreenOn] = useState(false);
     const [timerBackground, setTimerBackground] = useState('');
     const [playAlarm] = useSound(alarmKitchen);
-    const [areSettingsVisible, setAreSettingsVisible] = useState(true);
+    const [areSettingsVisible, setAreSettingsVisible] = useState(false);
 
     useEffect(() => {
         setTimerBackground(`conic-gradient(rgba(0, 0, 0, 0.4) ${360 - ratio * 360}deg, transparent calc(${360 - ratio * 360}deg + 0.5deg) 100%)`);
@@ -59,14 +60,19 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
 
     const getForm = form => {}
 
+    const closeSettings = () => setAreSettingsVisible(false);
+
     return (
         <div onKeyPress={handleKeyPress} tabIndex={0} style={{ outline: 'none' }} className={isFullscreenOn ? 'full-screen' : ''} >
             <Navbar goToMenu={goToMenu} goToTimer={goToTimer} goToProfile={goToProfile} />
             <div id='top-right'>
                 {
-                    isFullscreenOn 
+                    isFullscreenOn
                         ? <Close className='icon' onClick={() => setIsFullscreenOn()} />
-                        : <FullScreen className='icon' onClick={() => setIsFullscreenOn(true)} />
+                        : <>
+                            <FullScreen className='icon' onClick={() => setIsFullscreenOn(true)} />
+                            <SettingsIcon className='icon' onClick={() => setAreSettingsVisible(true)} style={{ marginTop: '10px' }} />
+                        </>
                 }
             </div>
             <div id='timer'>
@@ -117,6 +123,8 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
             <Settings 
                 areSettingsVisible={areSettingsVisible}
                 sendForm={getForm}
+                move={areSettingsVisible}
+                close={closeSettings}
             />
         </div>
     );

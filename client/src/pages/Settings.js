@@ -11,7 +11,7 @@ const defaultConfig = {
     alarm: 'Kitchen Alarm'
 };
 
-const Settings = ({ isShown, sendForm }) => {
+const Settings = ({ isShown, sendForm, move, close }) => {
     const previousForm = (localStorage.hasOwnProperty('config')) ? JSON.parse(localStorage.config): defaultConfig;
 
     const [pomodoroLength, setPomodoroLength] = useState(previousForm.pomodoroLength);
@@ -30,6 +30,12 @@ const Settings = ({ isShown, sendForm }) => {
     const handleVolumeChange = event => setVolume(event.target.value);
     const handleAlarmChange = event => setAlarm(event.target.value);
 
+    const [animations, setAnimations] = useState(0);
+    useEffect(() => {
+        console.log(move);
+        setAnimations(animations + 1);
+    }, [move]);
+
     const submit = event => {
         event.preventDefault();
         const config = {
@@ -44,7 +50,11 @@ const Settings = ({ isShown, sendForm }) => {
         localStorage.setItem('config', JSON.stringify(config));
     }
 
-    return <form id='Settings' onSubmit={submit}>
+    return <form id='Settings' onSubmit={submit} style={animations > 1 ? (move === true ? {
+        animationName: 'moveFoward'
+    } : {
+        animationName: 'moveBackward'
+    }) : null}>
         <p className='title'>Settings</p>
         <div>
             <div className='row'>
@@ -89,7 +99,7 @@ const Settings = ({ isShown, sendForm }) => {
             </div>
             <div className='row' id='last-row'>
                 <button id='submit' type='submit'>Save</button>
-                <p id='close'>Close</p>
+                <p id='close' onClick={close}>Close</p>
             </div>
         </div>
     </form>;

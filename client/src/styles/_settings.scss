@@ -3,7 +3,7 @@
 #Settings {
     position: absolute;
     bottom: 0;
-    right: 0;
+    right: -800px;
     display: flex;
     flex-direction: column;
     background-color: #343434ca;
@@ -68,6 +68,27 @@
             height: 2em;
             line-height: 2em;
             text-align: end;
+        }
+    }
+
+    animation-direction: fowards;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+
+    @keyframes moveFoward {
+        0% {
+            right: -800px;
+        } 100% {
+            right: 0;
+        }
+    }
+
+    @keyframes moveBackward {
+        0% {
+            right: 0;
+        } 100% {
+            right: -800px;
         }
     }
 }
