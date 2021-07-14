@@ -23,7 +23,6 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
     }, [ratio]);
 
     const handleKeyPress = (event) => {
-        console.log(event);
         if(event.key === ' ') {
             if(!hasStarted) {
                 restart();

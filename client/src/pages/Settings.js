@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 const localStorage = window.localStorage;
 
 const defaultConfig = {
@@ -6,23 +6,29 @@ const defaultConfig = {
     breakLength: 5,
     longBreakLength: 15,
     autoStart: false,
-    longBreakInterval: 3 
+    longBreakInterval: 3,
+    volume: 50,
+    alarm: 'Kitchen Alarm'
 };
 
 const Settings = ({ isShown, sendForm }) => {
     const previousForm = (localStorage.hasOwnProperty('config')) ? JSON.parse(localStorage.config): defaultConfig;
-    console.log(localStorage.config, previousForm);
+
     const [pomodoroLength, setPomodoroLength] = useState(previousForm.pomodoroLength);
     const [breakLength, setBreakLength] = useState(previousForm.breakLength);
     const [longBreakLength, setLongBreakLength] = useState(previousForm.longBreakLength);
     const [autoStart, setAutoStart] = useState(previousForm.autoStart);
     const [longBreakInterval, setLongBreakInterval] = useState(previousForm.longBreakInterval);
+    const [volume, setVolume] = useState(previousForm.volume);
+    const [alarm, setAlarm] = useState(previousForm.alarm);
 
     const handlePomodoroChange = event => setPomodoroLength(event.target.value);
     const handleBreakChange = event => setBreakLength(event.target.value);
     const handleLongBreakChange = event => setLongBreakLength(event.target.value);
     const handleAutoStartChange = () => setAutoStart(!autoStart);
     const handleLongBreakIntervalChange = event => setLongBreakInterval(event.target.value);
+    const handleVolumeChange = event => setVolume(event.target.value);
+    const handleAlarmChange = event => setAlarm(event.target.value);
 
     const submit = event => {
         event.preventDefault();
@@ -31,7 +37,9 @@ const Settings = ({ isShown, sendForm }) => {
             breakLength: parseInt(breakLength),
             longBreakLength: parseInt(longBreakLength),
             autoStart,
-            longBreakInterval: parseInt(longBreakInterval)
+            longBreakInterval: parseInt(longBreakInterval),
+            volume: parseInt(volume),
+            alarm: alarm
         };
         localStorage.setItem('config', JSON.stringify(config));
     }
@@ -64,6 +72,19 @@ const Settings = ({ isShown, sendForm }) => {
                 <div>
                     <label>Long break interval</label>
                     <input value={longBreakInterval} onChange={handleLongBreakIntervalChange} type='number' placeholder='' />
+                </div>
+            </div>
+            <div className='row'>
+                <div>
+                    <label>Volume</label>
+                    <input type='range' min='0' max='100' step='1' value={volume} onChange={handleVolumeChange} />
+                </div>
+                <div>
+                    <label>Alarm sound</label>
+                    <select name='alarm' value={alarm} onChange={handleAlarmChange}>
+                        <option value='Kitchen Alarm'>Kitchen Alarm</option>
+                        <option value='Gong'>Gong</option>
+                    </select>
                 </div>
             </div>
             <div className='row' id='last-row'>

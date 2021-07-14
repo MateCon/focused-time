@@ -8,6 +8,8 @@
     flex-direction: column;
     background-color: #343434ca;
     padding: 40px;
+    border-radius: 20px 0 0 0;
+    z-index: 2;
 
     div .row, .row {
         display: flex;
@@ -23,7 +25,6 @@
     .title {
         font-size: 3rem;
         margin: 0 auto 20px auto;
-
     }
 
     #last-row {
@@ -66,9 +67,17 @@
         #close {
             height: 2em;
             line-height: 2em;
-            text-align: center;
+            text-align: end;
         }
     }
+}
+
+select {
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    border: 1px solid white;
+    padding: 5px;
+    font-size: 0.7em;
 }
 
 // from https://www.w3schools.com/howto/howto_css_switch.asp

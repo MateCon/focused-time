@@ -53,7 +53,7 @@ const App = () => {
     pause,
     resume,
     restart,
-  } = useTimer({ expiryTimestamp, onExpire: () => {console.log('expire')} });
+  } = useTimer({ expiryTimestamp, onExpire: () => {} });
 
   const restartTimer = (state = '') => {
     let minutes;
