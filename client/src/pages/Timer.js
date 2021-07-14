@@ -44,8 +44,6 @@ const Timer = ({time, ratio, isRunning, start, pause, resume, restart, setPomodo
         }
     }
 
-    useEffect(() => {console.log(isFullscreenOn)}, [isFullscreenOn])
-
     // this is for handling the escape key
     useEffect(() => {
         const handleEsc = (event) => {
