@@ -57,6 +57,8 @@ const App = () => {
 
   // time management
   const [counterOnStart, setCounterOnStart] = useState(false);
+  const [numberOfBreaks, setNumberOfBreaks] = useState(0);
+
   let expiryTimestamp = 0;
   const {
     seconds,
@@ -100,15 +102,27 @@ const App = () => {
     }
 
     const newTime = new Date();
-    newTime.setSeconds(newTime.getSeconds() + minutes * 60);
+    newTime.setSeconds(newTime.getSeconds() + minutes * 6);
     restart(newTime, false);
     setCounterOnStart(true);
   }
 
   useEffect(() => {
     if(seconds + minutes === 0 && autoStart && counterOnStart && !isRunning) {
-      restartTimer('pomodoro');
+      const nextState = (currentState === 'break' || currentState === 'long break') 
+        ? 'pomodoro' 
+        : (numberOfBreaks + 1) % 3 === 0 
+          ? 'long break' 
+          : 'break'; 
+
+      console.log(nextState);
+      setCurrentState(nextState);
+      restartTimer(nextState);
       start();
+
+      if(currentState === 'break' || currentState === 'long break') {
+        setNumberOfBreaks(numberOfBreaks + 1);
+      }
     }
   }, [isRunning])
 
@@ -153,7 +167,7 @@ const App = () => {
         currentPage === 'Timer' ?
           <Timer 
             time={`${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`}
-            ratio={(minutes * 60 + seconds) / (60 * (currentState === 'pomodoro' ? pomodoroLength : (currentState === 'break' ? breakLength : (currentState === 'long break' ? longBreakLength : 25))))}
+            ratio={(minutes * 6 + seconds) / (6 * (currentState === 'pomodoro' ? pomodoroLength : (currentState === 'break' ? breakLength : (currentState === 'long break' ? longBreakLength : 25))))}
             isRunning={isRunning}
             start={start}
             pause={pause}
