@@ -139,3 +139,13 @@
         }
     }
 }
+
+#timer .show-current {
+    position: absolute;
+    top: 127px;
+    left: 33px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $primaryColor, $secondaryColor);
+}

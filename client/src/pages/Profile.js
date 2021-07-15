@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 const Profile = ({ user, SignIn, SignOut, goToMenu, goToTimer, goToProfile }) => {
     return <div id='profile'>
         <Navbar goToMenu={goToMenu} goToTimer={goToTimer} goToProfile={goToProfile} />
+        <div className='show-current' />
         {
             user
                 ? <div id='signed-in'>

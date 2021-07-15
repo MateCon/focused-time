@@ -84,6 +84,7 @@ const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomod
                 }
             </div>
             <div id='timer'>
+                <div className='show-current' />
                 {
                     !isFullscreenOn ? <div id='pomodoro-options-container'>
                         <button id='pomodoro-selector' onClick={() => {
