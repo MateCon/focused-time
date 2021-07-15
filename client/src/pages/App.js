@@ -155,6 +155,7 @@ const App = () => {
     setBreakLength(form.breakLength);
     setlongBreakLength(form.longBreakLength);
     setAutoStart(form.autoStart);
+    setCounterOnStart(false);
   }
 
   useEffect(() => {
