@@ -73,6 +73,7 @@ const App = () => {
   } = useTimer({ expiryTimestamp, onExpire: () => {}});
 
   const restartTimer = (state = '') => {
+    console.log('restart', state === '' ? currentState : state);
     let minutes;
     switch(state) {
       case 'pomodoro':
@@ -102,8 +103,8 @@ const App = () => {
     }
 
     const newTime = new Date();
-    newTime.setSeconds(newTime.getSeconds() + minutes * 6);
-    restart(newTime, false);
+    newTime.setSeconds(newTime.getSeconds() + minutes * 60);
+    restart(newTime, counterOnStart);
     setCounterOnStart(true);
   }
 
@@ -118,7 +119,6 @@ const App = () => {
       console.log(nextState);
       setCurrentState(nextState);
       restartTimer(nextState);
-      start();
 
       if(currentState === 'break' || currentState === 'long break') {
         setNumberOfBreaks(numberOfBreaks + 1);
@@ -167,7 +167,7 @@ const App = () => {
         currentPage === 'Timer' ?
           <Timer 
             time={`${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`}
-            ratio={(minutes * 6 + seconds) / (6 * (currentState === 'pomodoro' ? pomodoroLength : (currentState === 'break' ? breakLength : (currentState === 'long break' ? longBreakLength : 25))))}
+            ratio={(minutes * 60 + seconds) / (60 * (currentState === 'pomodoro' ? pomodoroLength : (currentState === 'break' ? breakLength : (currentState === 'long break' ? longBreakLength : 25))))}
             isRunning={isRunning}
             start={start}
             pause={pause}
