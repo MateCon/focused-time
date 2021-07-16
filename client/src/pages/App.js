@@ -109,7 +109,7 @@ const App = () => {
   }
 
   // sound
-  const [volume, setVolume] = useState(previousForm.volume);
+  const [volume, setVolume] = useState(previousForm.volume/2);
 
   useEffect(() => {
     if(seconds + minutes === 0 && autoStart && counterOnStart && !isRunning) {
@@ -158,7 +158,7 @@ const App = () => {
     setBreakLength(form.breakLength);
     setlongBreakLength(form.longBreakLength);
     setAutoStart(form.autoStart);
-    setVolume(form.volume);
+    setVolume(form.volume/2);
     setCounterOnStart(false);
   }
 
