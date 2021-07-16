@@ -1,0 +1,27 @@
+#stats {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-top: 5vh;
+    gap: 10vh;
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+
+        .icon-container {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+            font-size: 1em;
+            gap: 10px;
+
+            p {
+                font-size: 1.5em;
+                margin-bottom: -5px;
+            }
+        }
+    }
+}

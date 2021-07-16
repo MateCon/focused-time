@@ -1,4 +1,5 @@
 import React from 'react';
+import Stats from './Stats';
 import Navbar from './Navbar';
 
 const Profile = ({ user, SignIn, SignOut, goToMenu, goToTimer, goToProfile }) => {
@@ -12,6 +13,7 @@ const Profile = ({ user, SignIn, SignOut, goToMenu, goToTimer, goToProfile }) =>
                     <img src={user.photoURL} alt='Google account' />
                     <p className='title'>{user.displayName}</p>
                     <i className='email'>{user.email}</i>
+                    <Stats />
                 </div>
                 : <div id='signed-out'>
                     <SignIn />
