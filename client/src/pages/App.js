@@ -108,6 +108,9 @@ const App = () => {
     setCounterOnStart(true);
   }
 
+  // sound
+  const [volume, setVolume] = useState(previousForm.volume);
+
   useEffect(() => {
     if(seconds + minutes === 0 && autoStart && counterOnStart && !isRunning) {
       const nextState = (currentState === 'break' || currentState === 'long break') 
@@ -155,6 +158,7 @@ const App = () => {
     setBreakLength(form.breakLength);
     setlongBreakLength(form.longBreakLength);
     setAutoStart(form.autoStart);
+    setVolume(form.volume);
     setCounterOnStart(false);
   }
 
@@ -182,6 +186,7 @@ const App = () => {
             goToProfile={goToProfile}
             sendForm={getForm}
             counterOnStart={counterOnStart}
+            volume={volume}
           />
         : currentPage === 'Profile' ?
           <Profile 
