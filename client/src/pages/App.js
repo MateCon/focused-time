@@ -10,6 +10,8 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+import Axios from 'axios';
+
 if (!firebase.apps.length) {
   firebase.initializeApp({
     apiKey: "AIzaSyCt9tsbFxMESJRMqaLVE4sBl6BMf7LYqZI",
@@ -138,11 +140,18 @@ const App = () => {
  }, [seconds]);
 
   // user auth
+  const addUserToDB = (email, name) => {
+    Axios.post("http://localhost:3001/createUser", {
+      email: email,
+      name: name
+    })
+  }
+
   const [user] = useAuthState(auth);
   function SignIn() {
     const signInWithGoogle = () => {
       const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider);
+      auth.signInWithPopup(provider).then(() => addUserToDB(auth.currentUser.email, auth.currentUser.displayName));
     }
 
     return <button onClick={signInWithGoogle}><GoogleIcon className='icon' /> Sign in with Google</button>
