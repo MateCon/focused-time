@@ -58,9 +58,9 @@ const App = () => {
   const [autoStart, setAutoStart] = useState(previousForm.autoStart);
 
   // time management
-  const [counterOnStart, setCounterOnStart] = useState(false);
+  const [counterOnStart, setCounterOnStart] = useState(-1);
   const [numberOfBreaks, setNumberOfBreaks] = useState(0);
-  const [currLength, setCurrLength] = useState(-1);
+  const [currLength, setCurrLength] = useState(0);
 
   let expiryTimestamp = 0;
   const {
@@ -75,8 +75,7 @@ const App = () => {
     restart,
   } = useTimer({ expiryTimestamp, onExpire: () => {}});
 
-  const restartTimer = (state = '') => {
-    console.log('restart', state === '' ? currentState : state);
+  const restartTimer = (state = '', canStart = false) => {
     let minutes;
     switch(state) {
       case 'pomodoro':
@@ -107,16 +106,16 @@ const App = () => {
 
     const newTime = new Date();
     newTime.setSeconds(newTime.getSeconds() + minutes * 60);
-    restart(newTime, counterOnStart);
-    setCounterOnStart(true);
+    restart(newTime, (counterOnStart >= 1 && autoStart && canStart));
+    setCounterOnStart(0);
     setCurrLength(0);
   }
-
+  
   // sound
   const [volume, setVolume] = useState(previousForm.volume/2);
 
   const addPomodoroToDB = (was_compleated) => {
-    if(auth.currentUser === null) return;
+    if(auth.currentUser === null || currLength < 50) return;
     const currDate = new Date();
     Axios.post("http://localhost:3001/createPomodoro", {
       user_id: auth.currentUser.email, 
@@ -129,8 +128,8 @@ const App = () => {
   }
   
   useEffect(() => {
-    if(seconds + minutes === 0 && autoStart && counterOnStart && !isRunning) {
-      if(counterOnStart) {
+    if(seconds + minutes === 0 && autoStart && counterOnStart >= 0 && !isRunning) {
+      if(counterOnStart >= 0) {
         addPomodoroToDB(true);
       }
       const nextState = (currentState === 'break' || currentState === 'long break') 
@@ -140,7 +139,7 @@ const App = () => {
           : 'break'; 
 
       setCurrentState(nextState);
-      restartTimer(nextState);
+      restartTimer(nextState, true);
 
       if(currentState === 'break' || currentState === 'long break') {
         setNumberOfBreaks(numberOfBreaks + 1);
@@ -186,7 +185,7 @@ const App = () => {
     setlongBreakLength(form.longBreakLength);
     setAutoStart(form.autoStart);
     setVolume(form.volume/2);
-    setCounterOnStart(false);
+    setCounterOnStart(-1);
   }
 
   useEffect(() => {
@@ -201,7 +200,7 @@ const App = () => {
             time={`${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`}
             ratio={(minutes * 60 + seconds) / (60 * (currentState === 'pomodoro' ? pomodoroLength : (currentState === 'break' ? breakLength : (currentState === 'long break' ? longBreakLength : 25))))}
             isRunning={isRunning}
-            start={start}
+            start={() => {start(); setCounterOnStart(1);}}
             pause={pause}
             resume={resume}
             restart={restartTimer}

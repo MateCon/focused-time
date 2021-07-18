@@ -66,9 +66,12 @@ const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomod
     }
 
     useEffect(() => {
-        if(counterOnStart === 0) return;
-        console.log(counterOnStart);
-        setHasStarted(true);
+        console.log(counterOnStart, hasStarted);
+        if(counterOnStart >= 1) {
+            setHasStarted(true);
+        } else {
+            setHasStarted(false);
+        }
     }, [counterOnStart])
 
     return (
@@ -114,7 +117,7 @@ const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomod
                             ? <button onClick={() => {
                                 restart();
                                 start();
-                                setHasStarted(true);
+                                setHasStarted(0);
                             }}>Start</button>
                             : <>
                                 {
@@ -125,7 +128,7 @@ const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomod
                                 <button onClick={() => {
                                     addPomodoroToDB(false);
                                     restart(); 
-                                    setHasStarted(false);
+                                    setHasStarted(0);
                                 }} id='restart-button'>Restart</button>
                             </>
                     }
