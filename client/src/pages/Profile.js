@@ -13,7 +13,7 @@ const Profile = ({ user, SignIn, SignOut, goToMenu, goToTimer, goToProfile }) =>
                     <img src={user.photoURL} alt='Google account' />
                     <p className='title'>{user.displayName}</p>
                     <i className='email'>{user.email}</i>
-                    <Stats />
+                    <Stats user={user} />
                 </div>
                 : <div id='signed-out'>
                     <SignIn />

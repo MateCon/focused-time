@@ -54,6 +54,22 @@ app.post("/createPomodoro", (req, res) => {
     );
 });
 
+app.get("/getStats", (req, res) => {
+    const email = req.param('email');
+    console.log(req);
+    db.query(
+        "call getStats(?)",
+        [email],
+        (err, result) => {
+            if(err) {
+                console.log(err);
+            } else {
+                res.send(result);
+            }
+        }
+    );
+});
+
 app.listen(3001, () => {
     console.log("Yey, your server is running on port 3001");
 });
