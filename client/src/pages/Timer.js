@@ -8,7 +8,7 @@ import { ReactComponent as Close } from '../images/close.svg';
 import { ReactComponent as SettingsIcon } from '../images/settings.svg';
 import alarmKitchen from '../sounds/kitchen-alarm.mp3';
 
-const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak, goToMenu, goToTimer, goToProfile, sendForm, counterOnStart, volume }) => {
+const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak, goToMenu, goToTimer, goToProfile, sendForm, counterOnStart, volume, addPomodoroToDB }) => {
     const [hasStarted, setHasStarted] = useState(false);
     const [isFullscreenOn, setIsFullscreenOn] = useState(false);
     const [timerBackground, setTimerBackground] = useState('');
@@ -37,6 +37,7 @@ const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomod
             }
         } else if(event.key === 'r') {
             if(hasStarted) {
+                addPomodoroToDB(false);
                 restart();
                 setHasStarted(false);
             }
@@ -122,6 +123,7 @@ const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomod
                                         : <button onClick={resume}>Resume</button>
                                 }
                                 <button onClick={() => {
+                                    addPomodoroToDB(false);
                                     restart(); 
                                     setHasStarted(false);
                                 }} id='restart-button'>Restart</button>

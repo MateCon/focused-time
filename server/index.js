@@ -35,6 +35,25 @@ app.post("/createUser", (req, res) => {
     )
 });
 
+app.post("/createPomodoro", (req, res) => {
+    const user_id = req.body.user_id;
+    const seconds = req.body.seconds;
+    const date = req.body.date;
+    const time = req.body.time;
+    const was_compleated = req.body.was_compleated;
+    const is_break = req.body.is_break;
+
+    db.query(
+        "INSERT INTO Pomodoros(user_id, seconds, date, time, was_compleated, is_break) VALUES(?,?,?,?,?,?)",
+        [user_id, seconds, date, time, was_compleated, is_break],
+        (err, result) => {
+            if(err) {
+                console.log(err);
+            }
+        }
+    );
+});
+
 app.listen(3001, () => {
     console.log("Yey, your server is running on port 3001");
 });

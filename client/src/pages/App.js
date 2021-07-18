@@ -60,6 +60,7 @@ const App = () => {
   // time management
   const [counterOnStart, setCounterOnStart] = useState(false);
   const [numberOfBreaks, setNumberOfBreaks] = useState(0);
+  const [currLength, setCurrLength] = useState(-1);
 
   let expiryTimestamp = 0;
   const {
@@ -108,20 +109,36 @@ const App = () => {
     newTime.setSeconds(newTime.getSeconds() + minutes * 60);
     restart(newTime, counterOnStart);
     setCounterOnStart(true);
+    setCurrLength(0);
   }
 
   // sound
   const [volume, setVolume] = useState(previousForm.volume/2);
 
+  const addPomodoroToDB = (was_compleated) => {
+    if(auth.currentUser === null) return;
+    const currDate = new Date();
+    Axios.post("http://localhost:3001/createPomodoro", {
+      user_id: auth.currentUser.email, 
+      seconds: currLength,
+      date: currDate.getFullYear() + '-' + (currDate.getMonth() < 10 ? '0' : '') + currDate.getMonth() + '-' + (currDate.getDate() < 10 ? '0' : '') + currDate.getDate(),
+      time: (currDate.getHours() < 10 ? '0' : '') + currDate.getHours() + ':' + (currDate.getMinutes() < 10 ? '0' : '') + currDate.getMinutes() + ':' + (currDate.getSeconds() < 10 ? '0' : '') + currDate.getSeconds(), 
+      was_compleated: was_compleated, 
+      is_break: currentState === 'pomodoro' ? 0 : 1
+    })
+  }
+  
   useEffect(() => {
     if(seconds + minutes === 0 && autoStart && counterOnStart && !isRunning) {
+      if(counterOnStart) {
+        addPomodoroToDB(true);
+      }
       const nextState = (currentState === 'break' || currentState === 'long break') 
         ? 'pomodoro' 
         : (numberOfBreaks + 1) % 3 === 0 
           ? 'long break' 
           : 'break'; 
 
-      console.log(nextState);
       setCurrentState(nextState);
       restartTimer(nextState);
 
@@ -132,6 +149,7 @@ const App = () => {
   }, [isRunning])
 
   useEffect(() => {
+    setCurrLength(currLength + 1);
     if(isRunning && !(seconds === 0 && minutes === 0)) {
       document.title = `${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`; 
     } else {
@@ -196,6 +214,7 @@ const App = () => {
             sendForm={getForm}
             counterOnStart={counterOnStart}
             volume={volume}
+            addPomodoroToDB={addPomodoroToDB}
           />
         : currentPage === 'Profile' ?
           <Profile 
