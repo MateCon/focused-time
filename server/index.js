@@ -40,12 +40,12 @@ app.post("/createPomodoro", (req, res) => {
     const seconds = req.body.seconds;
     const date = req.body.date;
     const time = req.body.time;
-    const was_compleated = req.body.was_compleated;
+    const was_completed = req.body.was_completed;
     const is_break = req.body.is_break;
 
     db.query(
-        "INSERT INTO Pomodoros(user_id, seconds, date, time, was_compleated, is_break) VALUES(?,?,?,?,?,?)",
-        [user_id, seconds, date, time, was_compleated, is_break],
+        "INSERT INTO Pomodoros(user_id, seconds, date, time, was_completed, is_break) VALUES(?,?,?,?,?,?)",
+        [user_id, seconds, date, time, was_completed, is_break],
         (err, result) => {
             if(err) {
                 console.log(err);

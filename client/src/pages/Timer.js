@@ -6,13 +6,15 @@ import { ReactComponent as ClockBorder } from '../images/clock-border.svg';
 import { ReactComponent as FullScreen } from '../images/full-screen.svg';
 import { ReactComponent as Close } from '../images/close.svg';
 import { ReactComponent as SettingsIcon } from '../images/settings.svg';
-import alarmKitchen from '../sounds/kitchen-alarm.mp3';
 
-const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak, goToMenu, goToTimer, goToProfile, sendForm, counterOnStart, volume, addPomodoroToDB }) => {
+import Click from '../sounds/click.wav';
+
+const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak, goToMenu, goToTimer, goToProfile, sendForm, counterOnStart, alarmFile, volume, addPomodoroToDB }) => {
     const [hasStarted, setHasStarted] = useState(false);
     const [isFullscreenOn, setIsFullscreenOn] = useState(false);
     const [timerBackground, setTimerBackground] = useState('');
-    const [playAlarm] = useSound(alarmKitchen, {volume});
+    const [playAlarm] = useSound(alarmFile, {volume});
+    const [playClick] = useSound(Click, {volume});
     const [areSettingsVisible, setAreSettingsVisible] = useState(false);
 
     useEffect(() => {
@@ -28,11 +30,14 @@ const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomod
                 restart();
                 start();
                 setHasStarted(true);
+                playClick();
             } else {
                 if(!isRunning) {
                     resume();
+                    playClick();
                 } else {
                     pause();
+                    playClick();
                 }
             }
         } else if(event.key === 'r') {
@@ -40,6 +45,7 @@ const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomod
                 addPomodoroToDB(false);
                 restart();
                 setHasStarted(false);
+                playClick();
             }
         }
     }
@@ -63,6 +69,7 @@ const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomod
     const getForm = form => {
         sendForm(form);
         setHasStarted(false);
+        restart();
     }
 
     useEffect(() => {
@@ -108,7 +115,7 @@ const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomod
                 }
 
                 <div id='time-container' style={{ 'background':timerBackground }} />
-                <ClockBorder id='time-conteiner-compleated' />
+                <ClockBorder id='time-conteiner-completed' />
                 <p id='time'>{time}</p>
 
                 <div id={isFullscreenOn ? 'time-control-container-expanded' : 'time-control-container'}>

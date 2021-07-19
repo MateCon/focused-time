@@ -94,6 +94,7 @@ const Settings = ({ sendForm, move, close }) => {
                     <select name='alarm' value={alarm} onChange={handleAlarmChange}>
                         <option value='Kitchen Alarm'>Kitchen Alarm</option>
                         <option value='Gong'>Gong</option>
+                        <option value='Bell'>Bell</option> 
                     </select>
                 </div>
             </div>

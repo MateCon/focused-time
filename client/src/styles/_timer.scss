@@ -55,7 +55,7 @@
         gap: 40px;
     } 
 
-    #time-container, #time-conteiner-compleated {
+    #time-container, #time-conteiner-completed {
         position: absolute;
         border-radius: 100%;
     }
@@ -66,7 +66,7 @@
         background: conic-gradient(rgba(0, 0, 0, 0.4) 0deg, transparent calc(0deg + 0.5deg) 100%);
     }
 
-    #time-conteiner-compleated {
+    #time-conteiner-completed {
         width: 60vh;
         height: 60vh;
     }
@@ -117,7 +117,7 @@
             height: 80vh;
         }
 
-        #time-conteiner-compleated {
+        #time-conteiner-completed {
             width: 80vh;
             height: 80vh;
         }

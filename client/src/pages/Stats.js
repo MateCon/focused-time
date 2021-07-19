@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ReactComponent as Compleated } from '../images/stats/compleated.svg';
+import { ReactComponent as Completed } from '../images/stats/completed.svg';
 import { ReactComponent as Canceled } from '../images/stats/canceled.svg';
 import { ReactComponent as Breaks } from '../images/stats/breaks.svg';
 import { ReactComponent as TotalHours } from '../images/stats/total-hours.svg';
@@ -25,7 +25,7 @@ const Stats = ({user}) => {
             const data = response.data[0][0];
             console.log(data , data.total_seconds , data.pomodoros);
             setStats({
-                compleated: data.pomodoros,
+                completed: data.pomodoros,
                 canceled: data.canceled,
                 breaks: data.breaks,
                 totalHours: Math.floor(data.total_seconds / 3600),
@@ -35,7 +35,7 @@ const Stats = ({user}) => {
     }
 
     const [stats, setStats] = useState({
-        compleated: 0,
+        completed: 0,
         canceled: 0,
         breaks: 0,
         totalHours: 0,
@@ -49,9 +49,9 @@ const Stats = ({user}) => {
     return <div id='stats'>
         <div className='row'>
             <div className='icon-container'>
-                <p>{stats.compleated}</p>
-                <Compleated />
-                <i>Compleated pomodoros</i>
+                <p>{stats.completed}</p>
+                <Completed />
+                <i>Completed pomodoros</i>
             </div>
             <div className='icon-container'>
                 <p>{stats.canceled}</p>
@@ -61,7 +61,7 @@ const Stats = ({user}) => {
             <div className='icon-container'>
                 <p>{stats.breaks}</p>
                 <Breaks />
-                <i>Compleated beraks</i>
+                <i>Completed beraks</i>
             </div>
         </div>
         <div className='row'>
@@ -73,7 +73,7 @@ const Stats = ({user}) => {
             <div className='icon-container'>
                 <p>{stats.avgPomodoroLength}</p>
                 <AVGPomodoroLength />
-                <i>Agarage pomodoro length</i>
+                <i>Average pomodoro length</i>
             </div>
         </div>
         <div className='row'>

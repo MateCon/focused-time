@@ -12,6 +12,10 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import Axios from 'axios';
 
+import KitchenAlarm from '../sounds/kitchen-alarm.wav';
+import Gong from '../sounds/gong.wav';
+import Bell from '../sounds/bell.wav';
+
 if (!firebase.apps.length) {
   firebase.initializeApp({
     apiKey: "AIzaSyCt9tsbFxMESJRMqaLVE4sBl6BMf7LYqZI",
@@ -112,9 +116,21 @@ const App = () => {
   }
   
   // sound
-  const [volume, setVolume] = useState(previousForm.volume/2);
+  const getSoundFile = sound => {
+    switch(sound) {
+      case 'Kitchen Alarm':
+        return KitchenAlarm;
+      case 'Gong':
+        return Gong;
+      case 'Bell':
+        return Bell;
+    }
+  }
 
-  const addPomodoroToDB = (was_compleated) => {
+  const [currentAlarm, setCurrentAlarm] = useState(getSoundFile(previousForm.alarm));
+  const [volume, setVolume] = useState(previousForm.volume/8);
+
+  const addPomodoroToDB = (was_completed) => {
     if(auth.currentUser === null || currLength < 50) return;
     const currDate = new Date();
     Axios.post("http://localhost:3001/createPomodoro", {
@@ -122,7 +138,7 @@ const App = () => {
       seconds: currLength,
       date: currDate.getFullYear() + '-' + (currDate.getMonth() < 10 ? '0' : '') + currDate.getMonth() + '-' + (currDate.getDate() < 10 ? '0' : '') + currDate.getDate(),
       time: (currDate.getHours() < 10 ? '0' : '') + currDate.getHours() + ':' + (currDate.getMinutes() < 10 ? '0' : '') + currDate.getMinutes() + ':' + (currDate.getSeconds() < 10 ? '0' : '') + currDate.getSeconds(), 
-      was_compleated: was_compleated, 
+      was_completed: was_completed, 
       is_break: currentState === 'pomodoro' ? 0 : 1
     })
   }
@@ -184,7 +200,8 @@ const App = () => {
     setBreakLength(form.breakLength);
     setlongBreakLength(form.longBreakLength);
     setAutoStart(form.autoStart);
-    setVolume(form.volume/2);
+    setCurrentAlarm(getSoundFile(form.alarm));
+    setVolume(form.volume/8);
     setCounterOnStart(-1);
   }
 
@@ -212,6 +229,7 @@ const App = () => {
             goToProfile={goToProfile}
             sendForm={getForm}
             counterOnStart={counterOnStart}
+            alarmFile={currentAlarm}
             volume={volume}
             addPomodoroToDB={addPomodoroToDB}
           />
