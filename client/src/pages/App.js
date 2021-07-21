@@ -133,7 +133,7 @@ const App = () => {
   const addPomodoroToDB = (was_completed) => {
     if(auth.currentUser === null || currLength < 50) return;
     const currDate = new Date();
-    Axios.post("https://focused-time.herokuapp.com/createPomodoro", {
+    Axios.post("/createPomodoro", {
       user_id: auth.currentUser.email, 
       seconds: currLength,
       date: currDate.getFullYear() + '-' + (currDate.getMonth() < 10 ? '0' : '') + currDate.getMonth() + '-' + (currDate.getDate() < 10 ? '0' : '') + currDate.getDate(),
@@ -178,7 +178,7 @@ const App = () => {
 
   // user auth
   const addUserToDB = (email, name) => {
-    Axios.post("https://focused-time.herokuapp.com/createUser", {
+    Axios.post("/createUser", {
       email: email,
       name: name
     })
