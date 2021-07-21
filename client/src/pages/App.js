@@ -109,7 +109,7 @@ const App = () => {
     }
 
     const newTime = new Date();
-    newTime.setSeconds(newTime.getSeconds() + minutes * 6);
+    newTime.setSeconds(newTime.getSeconds() + minutes * 60);
     restart(newTime, (counterOnStart >= 1 && autoStart && canStart));
     setCounterOnStart(autoStart);
     setCurrLength(0);
@@ -133,7 +133,7 @@ const App = () => {
   const addPomodoroToDB = (was_completed) => {
     if(auth.currentUser === null || currLength < 50) return;
     const currDate = new Date();
-    Axios.post("http://localhost:3001/createPomodoro", {
+    Axios.post("https://focused-time.herokuapp.com/createPomodoro", {
       user_id: auth.currentUser.email, 
       seconds: currLength,
       date: currDate.getFullYear() + '-' + (currDate.getMonth() < 10 ? '0' : '') + currDate.getMonth() + '-' + (currDate.getDate() < 10 ? '0' : '') + currDate.getDate(),
@@ -178,7 +178,7 @@ const App = () => {
 
   // user auth
   const addUserToDB = (email, name) => {
-    Axios.post("http://localhost:3001/createUser", {
+    Axios.post("https://focused-time.herokuapp.com/createUser", {
       email: email,
       name: name
     })
@@ -219,7 +219,7 @@ const App = () => {
         currentPage === 'Timer' ?
           <Timer 
             time={`${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`}
-            ratio={(minutes * 6 + seconds) / (6 * (currentState === 'pomodoro' ? pomodoroLength : (currentState === 'break' ? breakLength : (currentState === 'long break' ? longBreakLength : 25))))}
+            ratio={(minutes * 60 + seconds) / (60 * (currentState === 'pomodoro' ? pomodoroLength : (currentState === 'break' ? breakLength : (currentState === 'long break' ? longBreakLength : 25))))}
             isRunning={isRunning}
             start={() => {start(); setCounterOnStart(1);}}
             pause={pause}
