@@ -1,7 +1,6 @@
 @import 'variables';
 
 .Menu {
-    
     #title {
         user-select: none;
         font-size: 5rem;
@@ -58,6 +57,13 @@
         }
     }
 
+    #scroll-btn {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+
     #background-text {
         user-select: none;
         color: rgba(255, 247, 247, 0.04);
@@ -87,5 +93,55 @@
         #logo {
             right: 10%;
         }
+    }
+}
+
+.Explanation {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 100vh;
+    background-color: white;
+    color: rgb(31, 31, 31);
+    padding: 0 120px;
+    z-index: 0;
+
+    #scroll-btn {
+        position: absolute;
+        top: 30px;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        margin: 1em 0;
+
+        h1, h2 {
+            font-weight: normal;
+        }
+    }
+
+    a {
+        text-decoration: none;
+        font-weight: 600;
+        color: #b33ef7;
+    }
+
+    #background-logo {
+        position: absolute;
+        top: 0;
+        right: 5%;
+        height: 100vh;
+        z-index: -1;
+    }
+
+    #dash-line {
+        position: absolute;
+        top: 0;
+        left: 82px;
+        height: 100vh;
+        z-index: -1;
     }
 }

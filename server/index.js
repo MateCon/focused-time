@@ -56,7 +56,6 @@ app.post("/createPomodoro", (req, res) => {
 
 app.get("/getStats", (req, res) => {
     const email = req.param('email');
-    console.log(req);
     db.query(
         "call getStats(?)",
         [email],
