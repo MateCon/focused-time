@@ -62,7 +62,7 @@ const App = () => {
   const [autoStart, setAutoStart] = useState(previousForm.autoStart);
 
   // time management
-  const [counterOnStart, setCounterOnStart] = useState(-1);
+  const [counterOnStart, setCounterOnStart] = useState(false);
   const [numberOfBreaks, setNumberOfBreaks] = useState(0);
   const [currLength, setCurrLength] = useState(0);
 
@@ -109,9 +109,9 @@ const App = () => {
     }
 
     const newTime = new Date();
-    newTime.setSeconds(newTime.getSeconds() + minutes * 60);
+    newTime.setSeconds(newTime.getSeconds() + minutes * 6);
     restart(newTime, (counterOnStart >= 1 && autoStart && canStart));
-    setCounterOnStart(0);
+    setCounterOnStart(autoStart);
     setCurrLength(0);
   }
   
@@ -143,8 +143,8 @@ const App = () => {
     })
   }
   
-  useEffect(() => {
-    if(seconds + minutes === 0 && autoStart && counterOnStart >= 0 && !isRunning) {
+  const handleIsRunning = () => {
+    if(seconds + minutes === 0 && counterOnStart >= 0 && !isRunning) {
       if(counterOnStart >= 0) {
         addPomodoroToDB(true);
       }
@@ -161,6 +161,10 @@ const App = () => {
         setNumberOfBreaks(numberOfBreaks + 1);
       }
     }
+  }
+
+  useEffect(() => {
+    handleIsRunning();
   }, [isRunning])
 
   useEffect(() => {
@@ -215,7 +219,7 @@ const App = () => {
         currentPage === 'Timer' ?
           <Timer 
             time={`${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`}
-            ratio={(minutes * 60 + seconds) / (60 * (currentState === 'pomodoro' ? pomodoroLength : (currentState === 'break' ? breakLength : (currentState === 'long break' ? longBreakLength : 25))))}
+            ratio={(minutes * 6 + seconds) / (6 * (currentState === 'pomodoro' ? pomodoroLength : (currentState === 'break' ? breakLength : (currentState === 'long break' ? longBreakLength : 25))))}
             isRunning={isRunning}
             start={() => {start(); setCounterOnStart(1);}}
             pause={pause}
@@ -232,6 +236,8 @@ const App = () => {
             alarmFile={currentAlarm}
             volume={volume}
             addPomodoroToDB={addPomodoroToDB}
+            autoStart={autoStart}
+            handleIsRunning={handleIsRunning}
           />
         : currentPage === 'Profile' ?
           <Profile 

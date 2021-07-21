@@ -9,7 +9,7 @@ import { ReactComponent as SettingsIcon } from '../images/settings.svg';
 
 import Click from '../sounds/click.wav';
 
-const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak, goToMenu, goToTimer, goToProfile, sendForm, counterOnStart, alarmFile, volume, addPomodoroToDB }) => {
+const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomodoro, setBreak, setLongBreak, goToMenu, goToTimer, goToProfile, sendForm, counterOnStart, alarmFile, volume, addPomodoroToDB, autoStart, handleIsRunning }) => {
     const [hasStarted, setHasStarted] = useState(false);
     const [isFullscreenOn, setIsFullscreenOn] = useState(false);
     const [timerBackground, setTimerBackground] = useState('');
@@ -21,6 +21,7 @@ const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomod
         setTimerBackground(ratio === 1 ? 'linear-gradient(transparent, transparent)' : `conic-gradient(rgba(0, 0, 0, 0.4) ${360 - ratio * 360}deg, transparent calc(${360 - ratio * 360}deg + 0.5deg) 100%)`);
         if(ratio === 0) {
             playAlarm();
+            handleIsRunning();
         }
     }, [ratio]);
 
@@ -72,15 +73,6 @@ const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomod
         restart();
     }
 
-    useEffect(() => {
-        console.log(counterOnStart, hasStarted);
-        if(counterOnStart >= 1) {
-            setHasStarted(true);
-        } else {
-            setHasStarted(false);
-        }
-    }, [counterOnStart])
-
     return (
         <div onKeyPress={handleKeyPress} tabIndex={0} style={{ outline: 'none' }} className={isFullscreenOn ? 'full-screen' : ''} >
             <Navbar goToMenu={goToMenu} goToTimer={goToTimer} goToProfile={goToProfile} />
@@ -124,7 +116,7 @@ const Timer = ({ time, ratio, isRunning, start, pause, resume, restart, setPomod
                             ? <button onClick={() => {
                                 restart();
                                 start();
-                                setHasStarted(0);
+                                setHasStarted(true);
                             }}>Start</button>
                             : <>
                                 {

@@ -23,7 +23,6 @@ const Stats = ({user}) => {
           params: { email: user.email }
         }).then(response => {
             const data = response.data[0][0];
-            console.log(data , data.total_seconds , data.pomodoros);
             setStats({
                 completed: data.pomodoros,
                 canceled: data.canceled,
