@@ -19,7 +19,7 @@ const Stats = ({user}) => {
     }
 
     const getStatsFromDB = () => {
-        Axios.get("https://focused-time.herokuapp.com/getStats", {
+        Axios.get("/getStats", {
           params: { email: user.email }
         }).then(response => {
             const data = response.data[0][0];
